@@ -1,62 +1,66 @@
 import React from "react";
 import * as THREE from "three";
+import {
+  BlendFunction,
+  BloomEffect,
+  EffectComposer,
+  EffectPass,
+  RenderPass
+} from "postprocessing";
 
 var OrbitControls = require("three-orbit-controls")(THREE);
 
 export default class App extends React.Component {
   componentDidMount() {
-    this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(
-      45,
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(
+      75,
       window.innerWidth / window.innerHeight,
-      1,
-      10000
+      0.1,
+      1000
     );
-    this.camera.position.set( 0, 20, 100 );
-    var controls = new OrbitControls(this.camera);
 
+    const effectBloom = new BloomEffect({
+      blendFunction: BlendFunction.SCREEN,
+      resolutionScale: 0.05,
+      distinction: 1
+    });
+    effectBloom.blendMode.opacity.value = 4;
 
-    //normalize the direction vector (convert to vector of length 1)
+    const effectPass = new EffectPass(camera, effectBloom);
+    effectPass.renderToScreen = true;
 
-    // var helper = new THREE.CameraHelper(this.camera);
-    // this.scene.add(helper);
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
 
-    var gridHelper = new THREE.GridHelper(1000, 10000);
-    this.scene.add(gridHelper);
+    const renderScene = new RenderPass(scene, camera);
+    const composer = new EffectComposer(renderer);
+    composer.addPass(renderScene);
+    composer.addPass(effectPass);
 
-    this.renderer = new THREE.WebGLRenderer({ antialias: true });
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(this.renderer.domElement);
+    const geometry = new THREE.SphereGeometry(1, 100, 100);
+    const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+
+    camera.position.z = 5;
 
     const loader = new THREE.TextureLoader();
     loader.load("/static/texture/green.jpg", texture => {
-      this.createSun(texture);
-      var render = () => {
-        requestAnimationFrame(render);
-        controls.update();
-        this.renderer.render(this.scene, this.camera);
-      };
-      console.log(this);
-      render();
+      const geometry = new THREE.SphereGeometry(1, 100, 100);
+      const material = new THREE.MeshBasicMaterial({ map: texture });
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+      animate();
     });
+
+    var animate = function() {
+      requestAnimationFrame(animate);
+
+      composer.render();
+    };
   }
-
-  createSun = texture => {
-    const geometry = new THREE.SphereGeometry(10, 100, 100);
-    const material = new THREE.MeshBasicMaterial({ map: texture });
-    const mesh = new THREE.Mesh(geometry, material);
-    this.scene.add(mesh);
-    var box = new THREE.BoxHelper(mesh, 0xffff00);
-    this.scene.add(box);
-    this.createSunLighting();
-  };
-
-  createSunLighting = () => {
-    var spotLight = new THREE.SpotLight(0xffffff);
-    spotLight.position.set(0, 1, 0);
-
-    this.scene.add(spotLight);
-  };
 
   render() {
     return null;
