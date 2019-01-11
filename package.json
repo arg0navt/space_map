@@ -1,0 +1,28 @@
+{
+  "name": "space_map",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/argonavt11/space_map.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/argonavt11/space_map/issues"
+  },
+  "homepage": "https://github.com/argonavt11/space_map#readme",
+  "dependencies": {
+    "next": "^7.0.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "three": "^0.100.0",
+    "three-orbit-controls": "^82.1.0"
+  }
+}
