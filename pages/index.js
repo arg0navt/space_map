@@ -19,26 +19,15 @@ export default class App extends React.Component {
       0.1,
       1000
     );
+    camera.position.z = 5;
 
-    // const effectBloom = new BloomEffect({
-    //   blendFunction: BlendFunction.SCREEN,
-    //   resolutionScale: 1,
-    //   distinction: 1
-    // });
-    // effectBloom.blendMode.opacity.value = 4;
-
-    
-
-    var renderer = new THREE.WebGLRenderer();
+    const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
     const renderScene = new RenderPass(scene, camera);
     const composer = new EffectComposer(renderer);
     composer.addPass(renderScene);
-    
-
-    camera.position.z = 5;
 
     const loader = new THREE.TextureLoader();
     loader.load("/static/texture/green.jpg", texture => {
