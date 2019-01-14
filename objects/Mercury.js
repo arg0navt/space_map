@@ -16,7 +16,6 @@ const Mercury = function(scene, camera) {
 
     this.orbit = new Orbit(this.group);
     scene.add(this.group);
-    console.log(this.group);
   });
 };
 

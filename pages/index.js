@@ -8,7 +8,7 @@ import {
   RenderPass
 } from "postprocessing";
 import Sun from "../objects/Sun";
-import Mercury from "../objects/Mercury";
+import Planet from "../objects/Planet";
 
 var OrbitControls = require("three-orbit-controls")(THREE);
 
@@ -39,7 +39,15 @@ export default class App extends React.Component {
     document.body.appendChild(renderer.domElement);
 
     const sun = new Sun(this.scenes.main, camera, renderer, animate);
-    const mercury = new Mercury(this.scenes.main, camera);
+    const mercury = new Planet({
+      scene: this.scenes.main,
+      radius: 50,
+      sizePlanet: 1,
+      intensive: 400,
+      startPositionX: 50,
+      startPositionZ: 0,
+      textureUrl: "/static/texture/mercury.jpg",
+    });
 
     const animate = () => {
       requestAnimationFrame(animate);
