@@ -17,6 +17,7 @@ const Sun = function (scene, camera, renderer, callback) {
   loader.load("/static/texture/sun.jpg", texture => {
     const geometry = new SphereGeometry(3, 100, 100);
     const material = new MeshBasicMaterial({ map: texture });
+    // material.lights = true;
     this.mesh = new Mesh(geometry, material);
     scene.add(this.mesh);
 
@@ -27,14 +28,15 @@ const Sun = function (scene, camera, renderer, callback) {
       decay: 1,
       weight: 0.4,
       exposure: 1,
-      samples: 200,
-      clampMax: 1.0
+      samples: 20,
+      clampMax: 1.0,
+      opacity: 1
     });
-
-    godRaysEffect.dithering = true;
+    
 
     const effectPass = new EffectPass(camera, godRaysEffect);
     effectPass.renderToScreen = true;
+    console.log(godRaysEffect, this.mesh, material);
     this.composer.addPass(effectPass);
   });
 };

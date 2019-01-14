@@ -9,7 +9,6 @@ import {
 } from "postprocessing";
 import Sun from "../objects/Sun";
 import Mercury from "../objects/Mercury";
-import Orbit from "../objects/Orbit";
 
 var OrbitControls = require("three-orbit-controls")(THREE);
 
@@ -18,7 +17,8 @@ export default class App extends React.Component {
     this.scenes = {
       help: new THREE.Scene(),
       sun: new THREE.Scene(),
-      mercury: new THREE.Scene()
+      mercury: new THREE.Scene(),
+      light: new THREE.Scene()
     };
     var camera = new THREE.PerspectiveCamera(
       75,
@@ -33,14 +33,12 @@ export default class App extends React.Component {
     // console.log(gridHelper);
     // this.scenes.help.add(gridHelper);
 
-
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
     const sun = new Sun(this.scenes.sun, camera, renderer, animate);
     const mercury = new Mercury(this.scenes.mercury, camera);
-    // const orbit = new Orbit()
 
     const animate = () => {
       requestAnimationFrame(animate);
@@ -50,12 +48,13 @@ export default class App extends React.Component {
       }
       if (mercury && mercury.mesh) {
         const { x, z } = mercury.mesh.position;
-        this.scenes.mercury.rotation.y += ((2*Math.PI / 180)) % 360;
+        this.scenes.mercury.rotation.y += ((0.2 * Math.PI) / 180) % 360;
       }
       sun.composer.render();
 
       renderer.render(this.scenes.help, camera);
       renderer.render(this.scenes.mercury, camera);
+      // renderer.render(this.scenes.light, camera);
     };
 
     animate();
