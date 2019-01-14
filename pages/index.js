@@ -19,7 +19,10 @@ export default class App extends React.Component {
       0.1,
       1000
     );
-    camera.position.z = 5;
+    camera.position.z = 100;
+    const controls = new OrbitControls(camera);
+    const gridHelper = new THREE.GridHelper(1000, 10000);
+    scene.add(gridHelper);
 
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -39,8 +42,8 @@ export default class App extends React.Component {
       const godRaysEffect = new GodRaysEffect(scene, camera, this.mesh, {
         resolutionScale: 0.75,
         kernelSize: KernelSize.SMALL,
-        density: 0.96,
-        decay: 0.90,
+        density: 1,
+        decay: 1,
         weight: 0.4,
         exposure: 0.55,
         samples: 60,
