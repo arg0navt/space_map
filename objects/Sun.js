@@ -14,8 +14,8 @@ const Sun = function (scene, camera, renderer, callback) {
 
   const loader = new TextureLoader();
 
-  loader.load("/static/texture/green.jpg", texture => {
-    const geometry = new SphereGeometry(1, 100, 100);
+  loader.load("/static/texture/sun.jpg", texture => {
+    const geometry = new SphereGeometry(3, 100, 100);
     const material = new MeshBasicMaterial({ map: texture });
     this.mesh = new Mesh(geometry, material);
     scene.add(this.mesh);
@@ -23,11 +23,11 @@ const Sun = function (scene, camera, renderer, callback) {
     const godRaysEffect = new GodRaysEffect(scene, camera, this.mesh, {
       resolutionScale: 0.75,
       kernelSize: KernelSize.SMALL,
-      density: 1,
+      density: 0.6,
       decay: 1,
       weight: 0.4,
-      exposure: 0.55,
-      samples: 60,
+      exposure: 1,
+      samples: 200,
       clampMax: 1.0
     });
 
