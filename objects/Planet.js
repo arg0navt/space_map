@@ -6,7 +6,7 @@ const Planet = function(options) {
   const loader = new TextureLoader();
 
   loader.load(options.textureUrl, texture => {
-    const geometry = new SphereGeometry(options.sizePlanet, 100, 100);
+    const geometry = new SphereGeometry(options.sizePlanet, 400, 400);
     const material = new MeshBasicMaterial({ map: texture, overdraw: true });
     this.mesh = new Mesh(geometry, material);
     

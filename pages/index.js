@@ -9,6 +9,7 @@ import {
 } from "postprocessing";
 import Sun from "../objects/Sun";
 import Planet from "../objects/Planet";
+import Stars from "../objects/Stars";
 
 var OrbitControls = require("three-orbit-controls")(THREE);
 
@@ -16,7 +17,7 @@ export default class App extends React.Component {
   componentDidMount() {
     this.scenes = {
       help: new THREE.Scene(),
-      main: new THREE.Scene(),
+      main: new THREE.Scene()
     };
     var camera = new THREE.PerspectiveCamera(
       75,
@@ -39,6 +40,7 @@ export default class App extends React.Component {
     document.body.appendChild(renderer.domElement);
 
     const sun = new Sun(this.scenes.main, camera, renderer, animate);
+    const stars = new Stars(this.scenes.main, camera, sun.composer);
     const mercury = new Planet({
       scene: this.scenes.main,
       radius: 50,
@@ -46,7 +48,7 @@ export default class App extends React.Component {
       intensive: 400,
       startPositionX: 50,
       startPositionZ: 0,
-      textureUrl: "/static/texture/mercury.jpg",
+      textureUrl: "/static/texture/mercury.jpg"
     });
 
     const animate = () => {
@@ -57,7 +59,7 @@ export default class App extends React.Component {
       }
       if (mercury && mercury.mesh) {
         mercury.group.rotation.y += ((0.2 * Math.PI) / 180) % 360;
-      } 
+      }
       sun.composer.render();
     };
 
