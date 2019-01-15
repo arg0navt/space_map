@@ -79,6 +79,26 @@ export default class App extends React.Component {
       textureUrl: "/static/texture/2k_earth_daymap.jpg"
     });
 
+    const mars = new Planet({
+      scene: this.scenes.main,
+      radius: 250,
+      sizePlanet: 1,
+      intensive: 400,
+      startPositionX: 0,
+      startPositionZ: 250,
+      textureUrl: "/static/texture/8k_mars.jpg"
+    });
+
+    const jupiter = new Planet({
+      scene: this.scenes.main,
+      radius: 400,
+      sizePlanet: 1.5,
+      intensive: 400,
+      startPositionX: 0,
+      startPositionZ: 400,
+      textureUrl: "/static/texture/8k_jupiter.jpg"
+    });
+
     const animate = () => {
       requestAnimationFrame(animate);
       if (sun && sun.mesh) {
@@ -93,6 +113,12 @@ export default class App extends React.Component {
       }
       if (earn && earn.mesh) {
         earn.group.rotation.y -= ((0.2 * Math.PI) / 180) % 360;
+      }
+      if (mars && mars.mesh) {
+        mars.group.rotation.y -= ((0.2 * Math.PI) / 180) % 360;
+      }
+      if (jupiter && jupiter.mesh) {
+        jupiter.group.rotation.y -= ((0.2 * Math.PI) / 180) % 360;
       }
       sun.composer.render();
     };
