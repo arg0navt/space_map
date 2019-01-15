@@ -66,7 +66,7 @@ export default class App extends React.Component {
         sun.mesh.rotation.y += 0.01;
       }
       if (mercury && mercury.mesh) {
-        // mercury.group.rotation.y += ((0.2 * Math.PI) / 180) % 360;
+        mercury.group.rotation.y += ((0.2 * Math.PI) / 180) % 360;
       }
       sun.composer.render();
     };
