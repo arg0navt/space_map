@@ -59,6 +59,26 @@ export default class App extends React.Component {
       textureUrl: "/static/texture/mercury.jpg"
     });
 
+    const venus = new Planet({
+      scene: this.scenes.main,
+      radius: 100,
+      sizePlanet: 1,
+      intensive: 400,
+      startPositionX: 100,
+      startPositionZ: 0,
+      textureUrl: "/static/texture/8k_venus_atmosphere.jpg"
+    });
+
+    const earn = new Planet({
+      scene: this.scenes.main,
+      radius: 200,
+      sizePlanet: 1,
+      intensive: 400,
+      startPositionX: 0,
+      startPositionZ: 200,
+      textureUrl: "/static/texture/2k_earth_daymap.jpg"
+    });
+
     const animate = () => {
       requestAnimationFrame(animate);
       if (sun && sun.mesh) {
@@ -67,6 +87,12 @@ export default class App extends React.Component {
       }
       if (mercury && mercury.mesh) {
         mercury.group.rotation.y += ((0.2 * Math.PI) / 180) % 360;
+      }
+      if (venus && venus.mesh) {
+        venus.group.rotation.y -= ((0.2 * Math.PI) / 180) % 360;
+      }
+      if (earn && earn.mesh) {
+        earn.group.rotation.y -= ((0.2 * Math.PI) / 180) % 360;
       }
       sun.composer.render();
     };
