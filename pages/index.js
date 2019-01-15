@@ -40,16 +40,12 @@ export default class App extends React.Component {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    var light = new THREE.PointLight(0xffffff, 100, 115);
-    light.position.set(0, 100, 0);
+    var light = new THREE.PointLight(0xeedca5, 3, 10000);
+    light.position.set(0, 0, 0);
     light.castShadow = true; // default false
     this.scenes.main.add(light);
 
     //Set up shadow properties for the light
-
-
-    var helper = new THREE.CameraHelper( light.shadow.camera );
-    this.scenes.main.add( helper );
 
     const sun = new Sun(this.scenes.main, camera, renderer, animate);
     const stars = new Stars(this.scenes.main, camera, sun.composer);
