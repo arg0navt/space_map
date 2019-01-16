@@ -1,20 +1,20 @@
 import * as THREE from "three";
 
 const Stars = function(scene, camera, composer) {
-  var starsGeometry = new THREE.Geometry();
+  const starsGeometry = new THREE.Geometry();
 
-  for (var i = 0; i < 2000000; i++) {
-    var star = new THREE.Vector3();
-    star.x = THREE.Math.randFloatSpread(100000, 40000);
-    star.y = THREE.Math.randFloatSpread(100000, 40000);
-    star.z = THREE.Math.randFloatSpread(100000, 40000);
+  for (var i = 0; i < 200000; i++) {
+    const star = new THREE.Vector3();
+    star.x = THREE.Math.randFloatSpread(40000, 40000, 39000);
+    star.y = THREE.Math.randFloatSpread(40000, 40000, 39000);
+    star.z = THREE.Math.randFloatSpread(40000, 40000, 39000);
 
     starsGeometry.vertices.push(star);
   }
 
-  var starsMaterial = new THREE.PointsMaterial({ color: 0xffffff });
+  const starsMaterial = new THREE.PointsMaterial({ color: 0x888888 });
 
-  var starField = new THREE.Points(starsGeometry, starsMaterial);
+  const starField = new THREE.Points(starsGeometry, starsMaterial);
   scene.add(starField)
 };
 

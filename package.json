@@ -20,9 +20,11 @@
   "homepage": "https://github.com/argonavt11/space_map#readme",
   "dependencies": {
     "next": "^7.0.2",
+    "postprocessing": "^5.4.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "three": "^0.100.0",
-    "three-orbit-controls": "^82.1.0"
+    "three-orbit-controls": "^82.1.0",
+    "three.equirectangular-to-cubemap": "^1.1.0"
   }
 }

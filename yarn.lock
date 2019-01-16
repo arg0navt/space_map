@@ -3742,6 +3742,10 @@ three-orbit-controls@^82.1.0:
   version "82.1.0"
   resolved "https://registry.yarnpkg.com/three-orbit-controls/-/three-orbit-controls-82.1.0.tgz#11a7f33d0a20ecec98f098b37780f6537374fab4"
 
+three.equirectangular-to-cubemap@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/three.equirectangular-to-cubemap/-/three.equirectangular-to-cubemap-1.1.0.tgz#b7ee6fe4178dc0258375b63de5f3b2b7589d2a6c"
+
 three@^0.100.0:
   version "0.100.0"
   resolved "https://registry.yarnpkg.com/three/-/three-0.100.0.tgz#262841c0b7d88ebd62af73f28d9f578963b3aa00"

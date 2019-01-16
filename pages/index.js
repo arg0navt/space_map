@@ -11,6 +11,7 @@ import Sun from "../objects/Sun";
 import Planet from "../objects/Planet";
 import Stars from "../objects/Stars";
 
+var EquirectangularToCubemap = require( 'three.equirectangular-to-cubemap' );
 var OrbitControls = require("three-orbit-controls")(THREE);
 
 export default class App extends React.Component {
@@ -19,23 +20,24 @@ export default class App extends React.Component {
       help: new THREE.Scene(),
       main: new THREE.Scene()
     };
+    this.scenes.fog = new THREE.Fog(0x242426, 2000, 4000);
     var camera = new THREE.PerspectiveCamera(
       75,
       window.innerWidth / window.innerHeight,
-      1,
+      0.1,
       15000
     );
     camera.position.z = 1000;
     camera.position.y = 200;
+    camera.updateProjectionMatrix();
     const controls = new OrbitControls(camera);
     // const gridHelper = new THREE.GridHelper(1000, 10);
     // console.log(gridHelper);
     // this.scenes.help.add(gridHelper);
 
     const renderer = new THREE.WebGLRenderer({
-      antialias: true
+      antialias: true,
     });
-    renderer.autoClear = false;
     renderer.shadowMapEnabled = true;
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
@@ -45,14 +47,31 @@ export default class App extends React.Component {
     light.castShadow = true; // default false
     this.scenes.main.add(light);
 
-    const otherLigh = [
-      new THREE.PointLight(0xeedca5, 1, 50000),
-      new THREE.PointLight(0xeedca5, 1, 50000),
-      new THREE.PointLight(0xeedca5, 1, 50000),
-      new THREE.PointLight(0xeedca5, 1, 50000),
-      new THREE.PointLight(0xeedca5, 1, 50000),
-      new THREE.PointLight(0xeedca5, 1, 50000)
-    ];
+    const otherLigh = [];
+
+    for (let i = 0; i <= 5; i++) {
+      const l = new THREE.PointLight(0xeedca5, 1, 50000);
+      l.castShadow = true;
+      otherLigh.push(new THREE.PointLight(0xeedca5, 1, 50000));
+    }
+    // new THREE.CubeTextureLoader()
+    //   .setPath("/static/texture/")
+    //   .load(
+    //     [
+    //       "suns.jpg",
+    //       "suns.jpg",
+    //       "suns.jpg",
+    //       "suns.jpg",
+    //       "suns.jpg",
+    //       "suns.jpg"
+    //     ],
+    //     texture => {
+    //       this.scenes.main.background = texture;
+    //       // this.scenes.main.backgroundSphere = true;
+    //       console.log(this.scenes.main);
+    //       animate();
+    //     }
+    //   );
 
     otherLigh[0].position.set(0, 45000, 0);
     otherLigh[1].position.set(0, -45000, 0);
@@ -61,19 +80,7 @@ export default class App extends React.Component {
     otherLigh[4].position.set(45000, 0, 0);
     otherLigh[5].position.set(-45000, 0, 0);
 
-    otherLigh[0].castShadow = true;
-    otherLigh[1].castShadow = true;
-    otherLigh[2].castShadow = true;
-    otherLigh[3].castShadow = true;
-    otherLigh[4].castShadow = true;
-    otherLigh[5].castShadow = true;
-
-    this.scenes.main.add(otherLigh[0]);
-    this.scenes.main.add(otherLigh[1]);
-    this.scenes.main.add(otherLigh[2]);
-    this.scenes.main.add(otherLigh[3]);
-    this.scenes.main.add(otherLigh[4]);
-    this.scenes.main.add(otherLigh[5]);
+    otherLigh.map(item => this.scenes.main.add(item));
 
     // var helper1 = new THREE.CameraHelper(otherLigh[0]);
     // this.scenes.main.add(helper1);
@@ -83,8 +90,7 @@ export default class App extends React.Component {
 
     //Set up shadow properties for the light
 
-    const sun = new Sun(this.scenes.main, camera, renderer, animate);
-    const stars = new Stars(this.scenes.main, camera, sun.composer);
+    const sun = new Sun(this.scenes.main, camera, renderer);
     const mercury = new Planet({
       scene: this.scenes.main,
       radius: 50,
@@ -135,6 +141,8 @@ export default class App extends React.Component {
       textureUrl: "/static/texture/8k_jupiter.jpg"
     });
 
+    new Stars(this.scenes.main, camera, sun.composer);
+
     const animate = () => {
       requestAnimationFrame(animate);
       if (sun && sun.mesh) {
@@ -143,18 +151,23 @@ export default class App extends React.Component {
       }
       if (mercury && mercury.mesh) {
         mercury.group.rotation.y += ((0.001 * Math.PI) / 180) % 360;
+        mercury.mesh.rotation.y += 0.01;
       }
       if (venus && venus.mesh) {
         venus.group.rotation.y -= ((0.001 * Math.PI) / 180) % 360;
+        venus.mesh.rotation.y += 0.01;
       }
       if (earn && earn.mesh) {
         earn.group.rotation.y -= ((0.001 * Math.PI) / 180) % 360;
+        earn.mesh.rotation.y += 0.01;
       }
       if (mars && mars.mesh) {
         mars.group.rotation.y -= ((0.001 * Math.PI) / 180) % 360;
+        mars.mesh.rotation.y += 0.01;
       }
       if (jupiter && jupiter.mesh) {
         jupiter.group.rotation.y -= ((0.001 * Math.PI) / 180) % 360;
+        jupiter.mesh.rotation.y += 0.01;
       }
       sun.composer.render();
     };
