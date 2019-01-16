@@ -11,7 +11,7 @@ import Sun from "../objects/Sun";
 import Planet from "../objects/Planet";
 import Stars from "../objects/Stars";
 
-var EquirectangularToCubemap = require( 'three.equirectangular-to-cubemap' );
+var EquirectangularToCubemap = require("three.equirectangular-to-cubemap");
 var OrbitControls = require("three-orbit-controls")(THREE);
 
 export default class App extends React.Component {
@@ -36,7 +36,7 @@ export default class App extends React.Component {
     // this.scenes.help.add(gridHelper);
 
     const renderer = new THREE.WebGLRenderer({
-      antialias: true,
+      antialias: true
     });
     renderer.shadowMapEnabled = true;
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -54,24 +54,24 @@ export default class App extends React.Component {
       l.castShadow = true;
       otherLigh.push(new THREE.PointLight(0xeedca5, 1, 50000));
     }
-    // new THREE.CubeTextureLoader()
-    //   .setPath("/static/texture/")
-    //   .load(
-    //     [
-    //       "suns.jpg",
-    //       "suns.jpg",
-    //       "suns.jpg",
-    //       "suns.jpg",
-    //       "suns.jpg",
-    //       "suns.jpg"
-    //     ],
-    //     texture => {
-    //       this.scenes.main.background = texture;
-    //       // this.scenes.main.backgroundSphere = true;
-    //       console.log(this.scenes.main);
-    //       animate();
-    //     }
-    //   );
+    new THREE.CubeTextureLoader()
+      .setPath("/static/texture/")
+      .load(
+        [
+          "8k_starss.jpg",
+          "left.jpg",
+          "8k_starss.jpg",
+          "8k_starss.jpg",
+          "8k_starss.jpg",
+          "center.jpg"
+        ],
+        texture => {
+          this.scenes.main.background = texture;
+          // // this.scenes.main.backgroundSphere = true;
+          console.log(texture);
+          animate();
+        }
+      );
 
     otherLigh[0].position.set(0, 45000, 0);
     otherLigh[1].position.set(0, -45000, 0);
@@ -141,7 +141,7 @@ export default class App extends React.Component {
       textureUrl: "/static/texture/8k_jupiter.jpg"
     });
 
-    new Stars(this.scenes.main, camera, sun.composer);
+    // new Stars(this.scenes.main, camera, sun.composer);
 
     const animate = () => {
       requestAnimationFrame(animate);
