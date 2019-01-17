@@ -37,7 +37,7 @@ const Planet = function(options) {
     if (options.textureCircleUrl) {
       const loadCircle = new TextureLoader();
       loadCircle.load(options.textureCircleUrl, textureCircle => {
-        var geometryCircle = new RingBufferGeometry(7.5, 4.5, 32, 1);
+        var geometryCircle = new RingBufferGeometry(9, 5, 64, 1);
         var uvs = geometryCircle.attributes.uv.array;
         var phiSegments = geometryCircle.parameters.phiSegments || 0;
         var thetaSegments = geometryCircle.parameters.thetaSegments || 0;
