@@ -7,9 +7,6 @@ import {
   RingBufferGeometry,
   MeshBasicMaterial,
   DoubleSide,
-  RepeatWrapping,
-  MeshPhongMaterial,
-  NearestFilter,
   Vector3
 } from "three";
 import Orbit from "./Orbit";
@@ -20,6 +17,7 @@ const Planet = function(options) {
 
   loader.load(options.textureUrl, texture => {
     const geometry = new SphereGeometry(options.sizePlanet, 400, 400);
+
     const material = new MeshStandardMaterial({
       roughness: 0.8,
       color: 0xffffff,
@@ -28,19 +26,23 @@ const Planet = function(options) {
     });
     material.map = texture;
     material.needsUpdate = true;
+
     this.mesh = new Mesh(geometry, material);
     this.mesh.castShadow = true;
     this.mesh.receiveShadow = false; //default
 
     this.groupPlanet = new Object3D();
 
-    if (options.textureCircleUrl) {
+    if (options.textureRingUrl && options.visitableRing) {
       const loadCircle = new TextureLoader();
-      loadCircle.load(options.textureCircleUrl, textureCircle => {
-        var geometryCircle = new RingBufferGeometry(9, 5, 64, 1);
-        var uvs = geometryCircle.attributes.uv.array;
-        var phiSegments = geometryCircle.parameters.phiSegments || 0;
-        var thetaSegments = geometryCircle.parameters.thetaSegments || 0;
+      loadCircle.load(options.textureRingUrl, textureRing => {
+        const geometryRing = new RingBufferGeometry(options.maxRadiusRing, options.minRadiusRing, options.segmentRing, 1);
+        geometryRing.rotateX(-Math.PI / 2);
+
+        // texturing
+        const uvs = geometryRing.attributes.uv.array;
+        var phiSegments = geometryRing.parameters.phiSegments || 0;
+        var thetaSegments = geometryRing.parameters.thetaSegments || 0;
         phiSegments = phiSegments !== undefined ? Math.max(1, phiSegments) : 1;
         thetaSegments =
           thetaSegments !== undefined ? Math.max(3, thetaSegments) : 8;
@@ -49,19 +51,19 @@ const Planet = function(options) {
             (uvs[c++] = i / thetaSegments), (uvs[c++] = j / phiSegments);
           }
         }
-        geometryCircle.rotateX(-Math.PI / 2);
-        var materialCircle = new MeshBasicMaterial({
-          map: textureCircle,
+        
+        var materialRing = new MeshBasicMaterial({
+          map: textureRing,
           side: DoubleSide,
           transparent: true
         });
 
-        const meshCircle = new Mesh(geometryCircle, materialCircle);
-        meshCircle.position.x = options.startPositionX;
-        meshCircle.position.z = options.startPositionZ;
-        meshCircle.lookAt(new Vector3(0, 90, 0));
+        this.ring = new Mesh(geometryRing, materialRing);
+        this.ring.position.x = options.startPositionX;
+        this.ring.position.z = options.startPositionZ;
+        this.ring.lookAt(new Vector3(options.lookAtRingX, options.lookAtRingY, options.lookAtRingZ));
 
-        this.groupPlanet.add(meshCircle);
+        this.groupPlanet.add(this.ring);
       });
     }
 

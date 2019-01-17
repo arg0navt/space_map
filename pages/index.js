@@ -91,60 +91,56 @@ export default class App extends React.Component {
     //Set up shadow properties for the light
 
     const sun = new Sun(this.scenes.main, camera, renderer);
-    const mercury = null;
-    const venus = null;
-    const earn = null;
-    const mars = null;
-    const jupiter = null;
-    // const mercury = new Planet({
-    //   scene: this.scenes.main,
-    //   radius: 50,
-    //   sizePlanet: 1,
-    //   intensive: 400,
-    //   startPositionX: 50,
-    //   startPositionZ: 0,
-    //   textureUrl: "/static/texture/mercury.jpg"
-    // });
 
-    // const venus = new Planet({
-    //   scene: this.scenes.main,
-    //   radius: 100,
-    //   sizePlanet: 1,
-    //   intensive: 500,
-    //   startPositionX: 100,
-    //   startPositionZ: 0,
-    //   textureUrl: "/static/texture/8k_venus_atmosphere.jpg"
-    // });
+    const mercury = new Planet({
+      scene: this.scenes.main,
+      radius: 50,
+      sizePlanet: 1,
+      intensive: 400,
+      startPositionX: 50,
+      startPositionZ: 0,
+      textureUrl: "/static/texture/mercury.jpg"
+    });
 
-    // const earn = new Planet({
-    //   scene: this.scenes.main,
-    //   radius: 200,
-    //   sizePlanet: 1,
-    //   intensive: 600,
-    //   startPositionX: 0,
-    //   startPositionZ: 200,
-    //   textureUrl: "/static/texture/2k_earth_daymap.jpg"
-    // });
+    const venus = new Planet({
+      scene: this.scenes.main,
+      radius: 100,
+      sizePlanet: 1,
+      intensive: 500,
+      startPositionX: 100,
+      startPositionZ: 0,
+      textureUrl: "/static/texture/8k_venus_atmosphere.jpg"
+    });
 
-    // const mars = new Planet({
-    //   scene: this.scenes.main,
-    //   radius: 250,
-    //   sizePlanet: 1,
-    //   intensive: 700,
-    //   startPositionX: 0,
-    //   startPositionZ: 250,
-    //   textureUrl: "/static/texture/8k_mars.jpg"
-    // });
+    const earn = new Planet({
+      scene: this.scenes.main,
+      radius: 200,
+      sizePlanet: 1,
+      intensive: 600,
+      startPositionX: 0,
+      startPositionZ: 200,
+      textureUrl: "/static/texture/2k_earth_daymap.jpg"
+    });
 
-    // const jupiter = new Planet({
-    //   scene: this.scenes.main,
-    //   radius: 400,
-    //   sizePlanet: 4,
-    //   intensive: 800,
-    //   startPositionX: 0,
-    //   startPositionZ: 400,
-    //   textureUrl: "/static/texture/8k_jupiter.jpg"
-    // });
+    const mars = new Planet({
+      scene: this.scenes.main,
+      radius: 250,
+      sizePlanet: 1,
+      intensive: 700,
+      startPositionX: 0,
+      startPositionZ: 250,
+      textureUrl: "/static/texture/8k_mars.jpg"
+    });
+
+    const jupiter = new Planet({
+      scene: this.scenes.main,
+      radius: 400,
+      sizePlanet: 4,
+      intensive: 800,
+      startPositionX: 0,
+      startPositionZ: 400,
+      textureUrl: "/static/texture/8k_jupiter.jpg"
+    });
 
     const saturn = new Planet({
       scene: this.scenes.main,
@@ -154,7 +150,14 @@ export default class App extends React.Component {
       startPositionX: 0,
       startPositionZ: 650,
       textureUrl: "/static/texture/8k_saturn.jpg",
-      textureCircleUrl: "/static/texture/8k_saturn_ring_alpha.png"
+      visitableRing: true,
+      textureRingUrl: "/static/texture/8k_saturn_ring_alpha.png",
+      minRadiusRing: 5,
+      maxRadiusRing: 9,
+      segmentRing: 64,
+      lookAtRingX: 0,
+      lookAtRingY: 90,
+      lookAtRingZ: 0
     });
 
     // new Stars(this.scenes.main, camera, sun.composer);
