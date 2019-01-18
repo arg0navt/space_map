@@ -12,6 +12,7 @@ import {
 import Orbit from "./Orbit";
 
 const Planet = function(options) {
+  this.params = options;
   this.group = new Object3D();
   const loader = new TextureLoader();
 
@@ -37,13 +38,14 @@ const Planet = function(options) {
     this.mesh.position.x = options.startPositionX;
     this.mesh.position.z = options.startPositionZ;
 
-    this.orbit = new Orbit(this.group, options.radius, options.intensive);
+    this.orbit = new Orbit(this.group, this.params.orbitRadius, this.params.intensive);
+
     options.scene.add(this.group);
   });
 
   this.createRings = rOptions => {
-    const loadCircle = new TextureLoader();
-    loadCircle.load(rOptions.textureUrl, textureRing => {
+    const loadRings = new TextureLoader();
+    loadRings.load(rOptions.textureUrl, textureRing => {
       const geometryRing = new RingBufferGeometry(
         rOptions.maxRadius,
         rOptions.minRadius,
@@ -75,11 +77,7 @@ const Planet = function(options) {
       this.ring.position.x = options.startPositionX;
       this.ring.position.z = options.startPositionZ;
       this.ring.lookAt(
-        new Vector3(
-          rOptions.lookAt.x,
-          rOptions.lookAt.y,
-          rOptions.lookAt.z
-        )
+        new Vector3(rOptions.lookAt.x, rOptions.lookAt.y, rOptions.lookAt.z)
       );
       this.ring.castShadow = true;
       this.ring.receiveShadow = false;
@@ -89,7 +87,31 @@ const Planet = function(options) {
   };
 
   this.createSatellite = sOptions => {
-    console.log(this, sOptions);
+    if (this[sOptions.name]) {
+      return false;
+    }
+
+    const myGroup = new Object3D();
+
+    // add orbit sattelite
+
+    const orbitSatellite = new Orbit(
+      myGroup,
+      sOptions.orbitRadius,
+      sOptions.intensive,
+      {
+        x: this.params.startPositionX,
+        z: this.params.startPositionZ
+      }
+    );
+
+    this.groupPlanet.add(myGroup);
+    console.log(this);
+
+    // const loadSattelite = new TextureLoader();
+    // loadSattelite.load(sOptions.textureUrl, sTexture => {
+
+    // })
   };
 };
 
