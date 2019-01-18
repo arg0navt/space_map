@@ -197,6 +197,10 @@ export default class App extends React.Component {
       if (earn && earn.mesh) {
         earn.group.rotation.y -= ((0.001 * Math.PI) / 180) % 360;
         earn.mesh.rotation.y += 0.01;
+        console.log(earn["satellite_moon"]);
+        if (earn.moon) {
+          earn.moon.rotation.y -= ((0.1 * Math.PI) / 180) % 360;
+        }
       }
       if (mars && mars.mesh) {
         mars.group.rotation.y -= ((0.001 * Math.PI) / 180) % 360;

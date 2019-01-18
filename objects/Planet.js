@@ -95,7 +95,9 @@ const Planet = function(options) {
       return false;
     }
 
-    const myGroup = new Object3D();
+    this[sOptions.name] = new Object3D();
+
+    this[sOptions.name].position.set(this.params.startPositionX, 0, this.params.startPositionZ);
 
     const loadSattelite = new TextureLoader();
     loadSattelite.load(sOptions.textureUrl, sTexture => {
@@ -110,27 +112,22 @@ const Planet = function(options) {
       materialSatellite.map = sTexture;
       materialSatellite.needsUpdate = true;
 
-      this[sOptions.name] = new Mesh(geometrySatellite, materialSatellite);
-      this[sOptions.name].castShadow = true;
-      this[sOptions.name].receiveShadow = false; //default
-      this[sOptions.name].position.x = this.params.startPositionX;
-      this[sOptions.name].position.z = this.params.startPositionZ + sOptions.orbitRadius;
+      const generalName = "satellite_" + sOptions.name;
+      this[generalName] = new Mesh(geometrySatellite, materialSatellite);
+      this[generalName].castShadow = true;
+      this[generalName].receiveShadow = false; //default
+      this[generalName].position.x = 0;
+      this[generalName].position.z = sOptions.orbitRadius;
 
-      myGroup.add(this[sOptions.name]);
-
-      console.log(this[sOptions.name]);
+      this[sOptions.name].add(this[generalName]);
 
       new Orbit(
-        myGroup,
+        this[sOptions.name],
         sOptions.orbitRadius,
-        sOptions.intensive,
-        {
-          x: this.params.startPositionX,
-          z: this.params.startPositionZ
-        }
+        sOptions.intensive
       );
 
-      this.groupPlanet.add(myGroup);
+      this.groupPlanet.add(this[sOptions.name]);
     });
   };
 };
