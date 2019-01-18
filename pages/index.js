@@ -24,7 +24,7 @@ export default class App extends React.Component {
     var camera = new THREE.PerspectiveCamera(
       75,
       window.innerWidth / window.innerHeight,
-      0.1,
+      0.0001,
       15000
     );
     camera.position.z = 1000;
@@ -132,8 +132,9 @@ export default class App extends React.Component {
     earn.createSatellite({
       name: "moon",
       textureUrl: "/static/texture/8k_moon.jpg",
-      orbitRadius: 400,
-      intensive: 300
+      orbitRadius: 7,
+      intensive: 300,
+      size: 0.27
     })
 
     // const mars = new Planet({

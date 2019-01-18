@@ -38,7 +38,11 @@ const Planet = function(options) {
     this.mesh.position.x = options.startPositionX;
     this.mesh.position.z = options.startPositionZ;
 
-    this.orbit = new Orbit(this.group, this.params.orbitRadius, this.params.intensive);
+    this.orbit = new Orbit(
+      this.group,
+      this.params.orbitRadius,
+      this.params.intensive
+    );
 
     options.scene.add(this.group);
   });
@@ -93,25 +97,41 @@ const Planet = function(options) {
 
     const myGroup = new Object3D();
 
-    // add orbit sattelite
+    const loadSattelite = new TextureLoader();
+    loadSattelite.load(sOptions.textureUrl, sTexture => {
+      const geometrySatellite = new SphereGeometry(sOptions.size, 400, 400);
 
-    const orbitSatellite = new Orbit(
-      myGroup,
-      sOptions.orbitRadius,
-      sOptions.intensive,
-      {
-        x: this.params.startPositionX,
-        z: this.params.startPositionZ
-      }
-    );
+      const materialSatellite = new MeshStandardMaterial({
+        roughness: 0.8,
+        color: 0xffffff,
+        metalness: 0.2,
+        bumpScale: 0.0005
+      });
+      materialSatellite.map = sTexture;
+      materialSatellite.needsUpdate = true;
 
-    this.groupPlanet.add(myGroup);
-    console.log(this);
+      this[sOptions.name] = new Mesh(geometrySatellite, materialSatellite);
+      this[sOptions.name].castShadow = true;
+      this[sOptions.name].receiveShadow = false; //default
+      this[sOptions.name].position.x = this.params.startPositionX;
+      this[sOptions.name].position.z = this.params.startPositionZ + sOptions.orbitRadius;
 
-    // const loadSattelite = new TextureLoader();
-    // loadSattelite.load(sOptions.textureUrl, sTexture => {
+      myGroup.add(this[sOptions.name]);
 
-    // })
+      console.log(this[sOptions.name]);
+
+      new Orbit(
+        myGroup,
+        sOptions.orbitRadius,
+        sOptions.intensive,
+        {
+          x: this.params.startPositionX,
+          z: this.params.startPositionZ
+        }
+      );
+
+      this.groupPlanet.add(myGroup);
+    });
   };
 };
 
