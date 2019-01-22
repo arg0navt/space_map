@@ -46,22 +46,22 @@ export default class App extends React.Component {
       starsLight.push(new THREE.PointLight(0xeedca5, 1, 50000));
     }
 
-    // new THREE.CubeTextureLoader()
-    //   .setPath("/static/texture/stars_background/")
-    //   .load(
-    //     [
-    //       "stars.jpg",
-    //       "left.jpg",
-    //       "stars.jpg",
-    //       "stars.jpg",
-    //       "stars.jpg",
-    //       "center.jpg"
-    //     ],
-    //     texture => {
-    //       this.scenes.main.background = texture;
-    //       animate();
-    //     }
-    //   );
+    new THREE.CubeTextureLoader()
+      .setPath("/static/texture/stars_background/")
+      .load(
+        [
+          "stars.jpg",
+          "left.jpg",
+          "stars.jpg",
+          "stars.jpg",
+          "stars.jpg",
+          "center.jpg"
+        ],
+        texture => {
+          this.scenes.main.background = texture;
+          animate();
+        }
+      );
 
     starsLight[0].position.set(0, 45000, 0);
     starsLight[1].position.set(0, -45000, 0);
@@ -108,13 +108,14 @@ export default class App extends React.Component {
       geometry: geometryPlanet,
     });
 
-    // earn.createSatellite({
-    //   name: "moon",
-    //   textureUrl: "/static/texture/2k/moon.jpg",
-    //   orbitRadius: 7,
-    //   intensive: 300,
-    //   size: 0.27
-    // });
+    earn.createSatellite({
+      name: "moon",
+      textureUrl: "/static/texture/2k/moon.jpg",
+      orbitRadius: 7,
+      intensive: 300,
+      size: 0.27,
+      geometry: geometryPlanet,
+    });
 
     const mars = new Planet({
       scene: this.scenes.main,
@@ -190,41 +191,41 @@ export default class App extends React.Component {
       if (sun && sun.mesh) {
         sun.mesh.rotation.y += 0.01;
       }
-      // if (mercury && mercury.mesh) {
-      //   mercury.group.rotation.y += r(0.001);
-      //   mercury.mesh.rotation.y += 0.01;
-      // }
-      // if (venus && venus.mesh) {
-      //   venus.group.rotation.y -= r(0.001);
-      //   venus.mesh.rotation.y += 0.01;
-      // }
-      // if (earn && earn.mesh) {
-      //   earn.group.rotation.y -= r(0.001);
-      //   earn.mesh.rotation.y += 0.01;
-      //   if (earn.moon) {
-      //     earn.moon.rotation.y -= ((0.1 * Math.PI) / 180) % 360;
-      //   }
-      // }
-      // if (mars && mars.mesh) {
-      //   mars.group.rotation.y -= r(0.001);
-      //   mars.mesh.rotation.y += 0.01;
-      // }
-      // if (jupiter && jupiter.mesh) {
-      //   jupiter.group.rotation.y -= r(0.001);
-      //   jupiter.mesh.rotation.y += 0.01;
-      // }
-      // if (saturn && saturn.mesh) {
-      //   saturn.group.rotation.y -= r(0.001);
-      //   saturn.mesh.rotation.y += 0.01;
-      // }
-      // if (uranus && uranus.mesh) {
-      //   uranus.group.rotation.y -= r(0.001);
-      //   uranus.mesh.rotation.y += 0.01;
-      // }
-      // if (neptune && neptune.mesh) {
-      //   neptune.group.rotation.y -= r(0.001);
-      //   neptune.mesh.rotation.y += 0.01;
-      // }
+      if (mercury && mercury.mesh) {
+        mercury.group.rotation.y += r(0.001);
+        mercury.mesh.rotation.y += 0.01;
+      }
+      if (venus && venus.mesh) {
+        venus.group.rotation.y -= r(0.001);
+        venus.mesh.rotation.y += 0.01;
+      }
+      if (earn && earn.mesh) {
+        earn.group.rotation.y -= r(0.001);
+        earn.mesh.rotation.y += 0.01;
+        if (earn.moon) {
+          earn.moon.rotation.y -= ((0.1 * Math.PI) / 180) % 360;
+        }
+      }
+      if (mars && mars.mesh) {
+        mars.group.rotation.y -= r(0.001);
+        mars.mesh.rotation.y += 0.01;
+      }
+      if (jupiter && jupiter.mesh) {
+        jupiter.group.rotation.y -= r(0.001);
+        jupiter.mesh.rotation.y += 0.01;
+      }
+      if (saturn && saturn.mesh) {
+        saturn.group.rotation.y -= r(0.001);
+        saturn.mesh.rotation.y += 0.01;
+      }
+      if (uranus && uranus.mesh) {
+        uranus.group.rotation.y -= r(0.001);
+        uranus.mesh.rotation.y += 0.01;
+      }
+      if (neptune && neptune.mesh) {
+        neptune.group.rotation.y -= r(0.001);
+        neptune.mesh.rotation.y += 0.01;
+      }
       sun.composer.render();
     };
     animate();

@@ -3,9 +3,7 @@ import {
   TextureLoader,
   MeshStandardMaterial,
   Mesh,
-  SphereGeometry,
   RingBufferGeometry,
-  MeshBasicMaterial,
   DoubleSide,
   Vector3
 } from "three";
@@ -97,8 +95,6 @@ const Planet = function(options) {
 
     const loadSattelite = new TextureLoader();
     loadSattelite.load(sOptions.textureUrl, sTexture => {
-      const geometrySatellite = new SphereGeometry(sOptions.size, 400, 400);
-
       const materialSatellite = new MeshStandardMaterial({
         roughness: 0.8,
         color: 0xffffff,
@@ -109,7 +105,8 @@ const Planet = function(options) {
       materialSatellite.needsUpdate = true;
 
       const generalName = "satellite_" + sOptions.name;
-      this[generalName] = new Mesh(geometrySatellite, materialSatellite);
+      this[generalName] = new Mesh(sOptions.geometry, materialSatellite);
+      this[generalName].scale.set(sOptions.size, sOptions.size, sOptions.size);
       this[generalName].castShadow = true;
       this[generalName].receiveShadow = false; //default
       this[generalName].position.x = 0;
