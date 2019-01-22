@@ -20,7 +20,7 @@ export default class App extends React.Component {
     camera.position.z = 1000;
     camera.position.y = 200;
     camera.updateProjectionMatrix();
-    new OrbitControls(camera);
+    const control = new OrbitControls(camera);
 
     // const gridHelper = new THREE.GridHelper(1000, 10);
     // console.log(gridHelper);
@@ -47,14 +47,14 @@ export default class App extends React.Component {
     }
 
     new THREE.CubeTextureLoader()
-      .setPath("/static/texture/")
+      .setPath("/static/texture/stars_background/")
       .load(
         [
-          "8k_starss.jpg",
+          "stars.jpg",
           "left.jpg",
-          "8k_starss.jpg",
-          "8k_starss.jpg",
-          "8k_starss.jpg",
+          "stars.jpg",
+          "stars.jpg",
+          "stars.jpg",
           "center.jpg"
         ],
         texture => {
@@ -78,9 +78,9 @@ export default class App extends React.Component {
       orbitRadius: 50,
       sizePlanet: 1,
       intensive: 400,
-      startPositionX: 50,
-      startPositionZ: 0,
-      textureUrl: "/static/texture/mercury.jpg"
+      startPositionX: 0,
+      startPositionZ: 50,
+      textureUrl: "/static/texture/low/mercury.png"
     });
 
     const venus = new Planet({
@@ -88,9 +88,9 @@ export default class App extends React.Component {
       orbitRadius: 100,
       sizePlanet: 1,
       intensive: 500,
-      startPositionX: 100,
-      startPositionZ: 0,
-      textureUrl: "/static/texture/8k_venus_atmosphere.jpg"
+      startPositionX: 0,
+      startPositionZ: 100,
+      textureUrl: "/static/texture/low/venus.jpg"
     });
 
     const earn = new Planet({
@@ -100,16 +100,16 @@ export default class App extends React.Component {
       intensive: 600,
       startPositionX: 0,
       startPositionZ: 200,
-      textureUrl: "/static/texture/2k_earth_daymap.jpg"
+      textureUrl: "/static/texture/2k/earth_daymap.jpg"
     });
 
-    earn.createSatellite({
-      name: "moon",
-      textureUrl: "/static/texture/8k_moon.jpg",
-      orbitRadius: 7,
-      intensive: 300,
-      size: 0.27
-    })
+    // earn.createSatellite({
+    //   name: "moon",
+    //   textureUrl: "/static/texture/2k/moon.jpg",
+    //   orbitRadius: 7,
+    //   intensive: 300,
+    //   size: 0.27
+    // });
 
     const mars = new Planet({
       scene: this.scenes.main,
@@ -118,7 +118,7 @@ export default class App extends React.Component {
       intensive: 700,
       startPositionX: 0,
       startPositionZ: 250,
-      textureUrl: "/static/texture/8k_mars.jpg"
+      textureUrl: "/static/texture/low/mars.jpg"
     });
 
     const jupiter = new Planet({
@@ -128,7 +128,7 @@ export default class App extends React.Component {
       intensive: 800,
       startPositionX: 0,
       startPositionZ: 400,
-      textureUrl: "/static/texture/8k_jupiter.jpg"
+      textureUrl: "/static/texture/2k/jupiter.jpg"
     });
 
     const saturn = new Planet({
@@ -138,11 +138,11 @@ export default class App extends React.Component {
       intensive: 1200,
       startPositionX: 0,
       startPositionZ: 650,
-      textureUrl: "/static/texture/8k_saturn.jpg"
+      textureUrl: "/static/texture/2k/saturn.jpg"
     });
 
     saturn.createRings({
-      textureUrl: "/static/texture/8k_saturn_ring_alpha.png",
+      textureUrl: "/static/texture/2k/saturn_ring_alpha.png",
       minRadius: 5,
       maxRadius: 9,
       segment: 64,
@@ -151,45 +151,72 @@ export default class App extends React.Component {
         y: 90,
         z: 0
       }
-    })
+    });
+
+    const uranus = new Planet({
+      scene: this.scenes.main,
+      orbitRadius: 800,
+      sizePlanet: 2.5,
+      intensive: 1500,
+      startPositionX: 0,
+      startPositionZ: 800,
+      textureUrl: "/static/texture/2k/uranus.jpg"
+    });
+
+    const neptune = new Planet({
+      scene: this.scenes.main,
+      orbitRadius: 1000,
+      sizePlanet: 1.5,
+      intensive: 1500,
+      startPositionX: 0,
+      startPositionZ: 1000,
+      textureUrl: "/static/texture/2k/neptune.jpg"
+    });
 
     const animate = () => {
       requestAnimationFrame(animate);
-      const r = (k) => ((k * Math.PI) / 180) % 360
+      const r = k => ((k * Math.PI) / 180) % 360;
 
       if (sun && sun.mesh) {
         sun.mesh.rotation.y += 0.01;
       }
-      if (mercury && mercury.mesh) {
-        mercury.group.rotation.y += r(0.001);
-        mercury.mesh.rotation.y += 0.01;
-      }
-      if (venus && venus.mesh) {
-        venus.group.rotation.y -= r(0.001);
-        venus.mesh.rotation.y += 0.01;
-      }
-      if (earn && earn.mesh) {
-        earn.group.rotation.y -= r(0.001);
-        earn.mesh.rotation.y += 0.01;
-        if (earn.moon) {
-          earn.moon.rotation.y -= ((0.1 * Math.PI) / 180) % 360;
-        }
-      }
-      if (mars && mars.mesh) {
-        mars.group.rotation.y -= r(0.001);
-        mars.mesh.rotation.y += 0.01;
-      }
-      if (jupiter && jupiter.mesh) {
-        jupiter.group.rotation.y -= r(0.001);
-        jupiter.mesh.rotation.y += 0.01;
-      }
-      if (saturn && saturn.mesh) {
-        saturn.group.rotation.y -= r(0.001);
-        // saturn.mesh.rotation.y += 0.01;
-      }
+      // if (mercury && mercury.mesh) {
+      //   mercury.group.rotation.y += r(0.001);
+      //   mercury.mesh.rotation.y += 0.01;
+      // }
+      // if (venus && venus.mesh) {
+      //   venus.group.rotation.y -= r(0.001);
+      //   venus.mesh.rotation.y += 0.01;
+      // }
+      // if (earn && earn.mesh) {
+      //   earn.group.rotation.y -= r(0.001);
+      //   earn.mesh.rotation.y += 0.01;
+      //   if (earn.moon) {
+      //     earn.moon.rotation.y -= ((0.1 * Math.PI) / 180) % 360;
+      //   }
+      // }
+      // if (mars && mars.mesh) {
+      //   mars.group.rotation.y -= r(0.001);
+      //   mars.mesh.rotation.y += 0.01;
+      // }
+      // if (jupiter && jupiter.mesh) {
+      //   jupiter.group.rotation.y -= r(0.001);
+      //   jupiter.mesh.rotation.y += 0.01;
+      // }
+      // if (saturn && saturn.mesh) {
+      //   saturn.group.rotation.y -= r(0.001);
+      //   saturn.mesh.rotation.y += 0.01;
+      // }
+      // if (uranus && uranus.mesh) {
+      //   uranus.group.rotation.y -= r(0.001);
+      //   uranus.mesh.rotation.y += 0.01;
+      // }
+      // if (neptune && neptune.mesh) {
+      //   neptune.group.rotation.y -= r(0.001);
+      //   neptune.mesh.rotation.y += 0.01;
+      // }
       sun.composer.render();
     };
-
     animate();
   }
 

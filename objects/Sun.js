@@ -14,7 +14,7 @@ const Sun = function(scene, camera, renderer, callback) {
 
   const loader = new TextureLoader();
 
-  loader.load("/static/texture/sun.jpg", texture => {
+  loader.load("/static/texture/2k/sun.jpg", texture => {
     const geometry = new SphereGeometry(10, 400, 400);
     const material = new MeshBasicMaterial({ map: texture });
     this.mesh = new Mesh(geometry, material);
