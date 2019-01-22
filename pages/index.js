@@ -17,7 +17,7 @@ export default class App extends React.Component {
       0.0001,
       15000
     );
-    camera.position.z = 1000;
+    camera.position.z = 100000;
     camera.position.y = 200;
     camera.updateProjectionMatrix();
     const control = new OrbitControls(camera);
@@ -27,13 +27,14 @@ export default class App extends React.Component {
     // this.scenes.help.add(gridHelper);
 
     const renderer = new THREE.WebGLRenderer({
-      antialias: true
+      antialias: true,
+      autoClear: false
     });
     renderer.shadowMapEnabled = true;
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    var light = new THREE.PointLight(0xeedca5, 4, 10000);
+    var light = new THREE.PointLight(0xeedca5, 4, 200000);
     light.position.set(0, 0, 0);
     light.castShadow = true; // default false
     this.scenes.main.add(light);
@@ -41,9 +42,9 @@ export default class App extends React.Component {
     const starsLight = [];
 
     for (let i = 0; i <= 5; i++) {
-      const l = new THREE.PointLight(0xeedca5, 1, 50000);
+      const l = new THREE.PointLight(0xeedca5, 1, 200000);
       l.castShadow = true;
-      starsLight.push(new THREE.PointLight(0xeedca5, 1, 50000));
+      starsLight.push(new THREE.PointLight(0xeedca5, 1, 200000));
     }
 
     new THREE.CubeTextureLoader()
@@ -63,12 +64,12 @@ export default class App extends React.Component {
         }
       );
 
-    starsLight[0].position.set(0, 45000, 0);
-    starsLight[1].position.set(0, -45000, 0);
-    starsLight[2].position.set(0, 0, 45000);
-    starsLight[3].position.set(0, 0, -45000);
-    starsLight[4].position.set(45000, 0, 0);
-    starsLight[5].position.set(-45000, 0, 0);
+    starsLight[0].position.set(0, 200000, 0);
+    starsLight[1].position.set(0, -200000, 0);
+    starsLight[2].position.set(0, 0, 200000);
+    starsLight[3].position.set(0, 0, -200000);
+    starsLight[4].position.set(200000, 0, 0);
+    starsLight[5].position.set(-200000, 0, 0);
     starsLight.map(item => this.scenes.main.add(item));
 
     const sun = new Sun(this.scenes.main, camera, renderer);
@@ -77,33 +78,33 @@ export default class App extends React.Component {
 
     const mercury = new Planet({
       scene: this.scenes.main,
-      orbitRadius: 50,
-      sizePlanet: 1,
+      orbitRadius: 1158,
+      sizePlanet: 0.38,
       intensive: 400,
       startPositionX: 0,
-      startPositionZ: 50,
+      startPositionZ: 1158,
       textureUrl: "/static/texture/low/mercury.png",
       geometry: geometryPlanet,
     });
 
     const venus = new Planet({
       scene: this.scenes.main,
-      orbitRadius: 100,
-      sizePlanet: 1,
+      orbitRadius: 2164,
+      sizePlanet: 0.94,
       intensive: 500,
       startPositionX: 0,
-      startPositionZ: 100,
+      startPositionZ: 2164,
       textureUrl: "/static/texture/low/venus.png",
       geometry: geometryPlanet,
     });
 
     const earn = new Planet({
       scene: this.scenes.main,
-      orbitRadius: 200,
+      orbitRadius: 2992,
       sizePlanet: 1,
       intensive: 600,
       startPositionX: 0,
-      startPositionZ: 200,
+      startPositionZ: 2992,
       textureUrl: "/static/texture/low/earn.png",
       geometry: geometryPlanet,
     });
@@ -119,33 +120,33 @@ export default class App extends React.Component {
 
     const mars = new Planet({
       scene: this.scenes.main,
-      orbitRadius: 250,
-      sizePlanet: 1,
+      orbitRadius: 4558,
+      sizePlanet: 0.53,
       intensive: 700,
       startPositionX: 0,
-      startPositionZ: 250,
+      startPositionZ: 4558,
       textureUrl: "/static/texture/low/mars.jpg",
       geometry: geometryPlanet,
     });
 
     const jupiter = new Planet({
       scene: this.scenes.main,
-      orbitRadius: 400,
-      sizePlanet: 4,
+      orbitRadius: 15570,
+      sizePlanet: 10,
       intensive: 800,
       startPositionX: 0,
-      startPositionZ: 400,
+      startPositionZ: 15570,
       textureUrl: "/static/texture/low/jupiter.jpg",
       geometry: geometryPlanet,
     });
 
     const saturn = new Planet({
       scene: this.scenes.main,
-      orbitRadius: 650,
-      sizePlanet: 4,
+      orbitRadius: 28680,
+      sizePlanet: 9.14,
       intensive: 1200,
       startPositionX: 0,
-      startPositionZ: 650,
+      startPositionZ: 28680,
       textureUrl: "/static/texture/low/saturn.jpg",
       geometry: geometryPlanet,
     });
@@ -165,7 +166,7 @@ export default class App extends React.Component {
     const uranus = new Planet({
       scene: this.scenes.main,
       orbitRadius: 800,
-      sizePlanet: 2.5,
+      sizePlanet: 3.98,
       intensive: 1500,
       startPositionX: 0,
       startPositionZ: 800,
@@ -175,11 +176,11 @@ export default class App extends React.Component {
 
     const neptune = new Planet({
       scene: this.scenes.main,
-      orbitRadius: 1000,
-      sizePlanet: 1.5,
+      orbitRadius: 57420,
+      sizePlanet: 3.86,
       intensive: 1500,
       startPositionX: 0,
-      startPositionZ: 1000,
+      startPositionZ: 57420,
       textureUrl: "/static/texture/low/neptune.png",
       geometry: geometryPlanet,
     });

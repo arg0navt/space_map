@@ -1,6 +1,6 @@
 import { CircleGeometry, LineBasicMaterial, Line } from "three";
 
-var geometryOrbit = new CircleGeometry(1, 1500);
+var geometryOrbit = new CircleGeometry(1, 99500);
 geometryOrbit.vertices.shift();
 geometryOrbit.rotateX(-Math.PI / 2);
 
