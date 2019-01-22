@@ -5,7 +5,8 @@ import {
   Mesh,
   RingBufferGeometry,
   DoubleSide,
-  Vector3
+  Vector3,
+  MeshBasicMaterial
 } from "three";
 import Orbit from "./Orbit";
 
@@ -16,17 +17,13 @@ const Planet = function(options) {
 
   this.groupPlanet = new Object3D();
   loader.load(options.textureUrl, texture => {
-    const materialPlanet = new MeshStandardMaterial({
-      roughness: 0.8,
-      color: 0xffffff,
-      metalness: 0.2,
-      bumpScale: 0.0005,
+    const materialPlanet = new MeshBasicMaterial({
       map: texture
     });
     this.mesh = new Mesh(options.geometry, materialPlanet);
     this.mesh.scale.set(options.sizePlanet, options.sizePlanet, options.sizePlanet);
-    this.mesh.castShadow = true;
-    this.mesh.receiveShadow = false; //default
+    this.mesh.castShadow = false;
+    this.mesh.receiveShadow = true; //default
     this.group.add(this.groupPlanet);
     this.groupPlanet.add(this.mesh);
     this.mesh.position.x = options.startPositionX;
@@ -65,7 +62,7 @@ const Planet = function(options) {
         }
       }
 
-      var materialRing = new MeshStandardMaterial({
+      var materialRing = new MeshBasicMaterial({
         map: textureRing,
         side: DoubleSide,
         transparent: true
