@@ -17,20 +17,16 @@ const Planet = function(options) {
   const loader = new TextureLoader();
 
   this.groupPlanet = new Object3D();
-
   loader.load(options.textureUrl, texture => {
-    const geometry = new SphereGeometry(options.sizePlanet, 400, 400);
-
-    const material = new MeshStandardMaterial({
+    const materialPlanet = new MeshStandardMaterial({
       roughness: 0.8,
       color: 0xffffff,
       metalness: 0.2,
-      bumpScale: 0.0005
+      bumpScale: 0.0005,
+      map: texture
     });
-    material.map = texture;
-    material.needsUpdate = true;
-
-    this.mesh = new Mesh(geometry, material);
+    this.mesh = new Mesh(options.geometry, materialPlanet);
+    this.mesh.scale.set(options.sizePlanet, options.sizePlanet, options.sizePlanet);
     this.mesh.castShadow = true;
     this.mesh.receiveShadow = false; //default
     this.group.add(this.groupPlanet);

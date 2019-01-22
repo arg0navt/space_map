@@ -46,22 +46,22 @@ export default class App extends React.Component {
       starsLight.push(new THREE.PointLight(0xeedca5, 1, 50000));
     }
 
-    new THREE.CubeTextureLoader()
-      .setPath("/static/texture/stars_background/")
-      .load(
-        [
-          "stars.jpg",
-          "left.jpg",
-          "stars.jpg",
-          "stars.jpg",
-          "stars.jpg",
-          "center.jpg"
-        ],
-        texture => {
-          this.scenes.main.background = texture;
-          animate();
-        }
-      );
+    // new THREE.CubeTextureLoader()
+    //   .setPath("/static/texture/stars_background/")
+    //   .load(
+    //     [
+    //       "stars.jpg",
+    //       "left.jpg",
+    //       "stars.jpg",
+    //       "stars.jpg",
+    //       "stars.jpg",
+    //       "center.jpg"
+    //     ],
+    //     texture => {
+    //       this.scenes.main.background = texture;
+    //       animate();
+    //     }
+    //   );
 
     starsLight[0].position.set(0, 45000, 0);
     starsLight[1].position.set(0, -45000, 0);
@@ -73,6 +73,8 @@ export default class App extends React.Component {
 
     const sun = new Sun(this.scenes.main, camera, renderer);
 
+    const geometryPlanet = new THREE.SphereGeometry(1, 400, 400);
+
     const mercury = new Planet({
       scene: this.scenes.main,
       orbitRadius: 50,
@@ -80,7 +82,8 @@ export default class App extends React.Component {
       intensive: 400,
       startPositionX: 0,
       startPositionZ: 50,
-      textureUrl: "/static/texture/low/mercury.png"
+      textureUrl: "/static/texture/low/mercury.png",
+      geometry: geometryPlanet,
     });
 
     const venus = new Planet({
@@ -90,7 +93,8 @@ export default class App extends React.Component {
       intensive: 500,
       startPositionX: 0,
       startPositionZ: 100,
-      textureUrl: "/static/texture/low/venus.jpg"
+      textureUrl: "/static/texture/low/venus.png",
+      geometry: geometryPlanet,
     });
 
     const earn = new Planet({
@@ -100,7 +104,8 @@ export default class App extends React.Component {
       intensive: 600,
       startPositionX: 0,
       startPositionZ: 200,
-      textureUrl: "/static/texture/2k/earth_daymap.jpg"
+      textureUrl: "/static/texture/low/earn.png",
+      geometry: geometryPlanet,
     });
 
     // earn.createSatellite({
@@ -118,7 +123,8 @@ export default class App extends React.Component {
       intensive: 700,
       startPositionX: 0,
       startPositionZ: 250,
-      textureUrl: "/static/texture/low/mars.jpg"
+      textureUrl: "/static/texture/low/mars.jpg",
+      geometry: geometryPlanet,
     });
 
     const jupiter = new Planet({
@@ -128,7 +134,8 @@ export default class App extends React.Component {
       intensive: 800,
       startPositionX: 0,
       startPositionZ: 400,
-      textureUrl: "/static/texture/2k/jupiter.jpg"
+      textureUrl: "/static/texture/low/jupiter.jpg",
+      geometry: geometryPlanet,
     });
 
     const saturn = new Planet({
@@ -138,11 +145,12 @@ export default class App extends React.Component {
       intensive: 1200,
       startPositionX: 0,
       startPositionZ: 650,
-      textureUrl: "/static/texture/2k/saturn.jpg"
+      textureUrl: "/static/texture/low/saturn.jpg",
+      geometry: geometryPlanet,
     });
 
     saturn.createRings({
-      textureUrl: "/static/texture/2k/saturn_ring_alpha.png",
+      textureUrl: "/static/texture/low/saturn_ring_alpha.png",
       minRadius: 5,
       maxRadius: 9,
       segment: 64,
@@ -160,7 +168,8 @@ export default class App extends React.Component {
       intensive: 1500,
       startPositionX: 0,
       startPositionZ: 800,
-      textureUrl: "/static/texture/2k/uranus.jpg"
+      textureUrl: "/static/texture/low/uranus.jpg",
+      geometry: geometryPlanet,
     });
 
     const neptune = new Planet({
@@ -170,7 +179,8 @@ export default class App extends React.Component {
       intensive: 1500,
       startPositionX: 0,
       startPositionZ: 1000,
-      textureUrl: "/static/texture/2k/neptune.jpg"
+      textureUrl: "/static/texture/low/neptune.png",
+      geometry: geometryPlanet,
     });
 
     const animate = () => {
