@@ -15,10 +15,10 @@ export default class App extends React.Component {
       75,
       window.innerWidth / window.innerHeight,
       0.0001,
-      15000
+      20000000
     );
-    camera.position.z = 28700;
-    camera.position.y = 0;
+    camera.position.z = 20700;
+    camera.position.y = 400;
     camera.updateProjectionMatrix();
     const control = new OrbitControls(camera);
 
