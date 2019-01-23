@@ -21,13 +21,13 @@ const Sun = function(scene, camera, renderer, callback) {
     scene.add(this.mesh);
 
     const godRaysEffect = new GodRaysEffect(scene, camera, this.mesh, {
-      resolutionScale: 0.99,
+      resolutionScale: 0.75,
       kernelSize: KernelSize.SMALL,
       density: 1,
-      decay: 1,
-      weight: 0.2,
-      exposure: 0.1,
-      samples: 100,
+      decay: 0.98,
+      weight: 0.4,
+      exposure: 0.55,
+      samples: 60,
       clampMax: 1.0,
       opacity: 1
     });

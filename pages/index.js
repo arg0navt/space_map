@@ -18,13 +18,9 @@ export default class App extends React.Component {
       20000000
     );
     camera.position.z = 20700;
-    camera.position.y = 400;
+    camera.position.y = 5000;
     camera.updateProjectionMatrix();
     const control = new OrbitControls(camera);
-
-    // const gridHelper = new THREE.GridHelper(1000, 10);
-    // console.log(gridHelper);
-    // this.scenes.help.add(gridHelper);
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -33,19 +29,6 @@ export default class App extends React.Component {
     renderer.shadowMapEnabled = true;
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
-
-    // var light = new THREE.PointLight(0xeedca5, 100, 200000);
-    // light.position.set(0, 0, 0);
-    // light.castShadow = true; // default false
-    // this.scenes.main.add(light);
-
-    // const starsLight = [];
-
-    // for (let i = 0; i <= 5; i++) {
-    //   const l = new THREE.PointLight(0xeedca5, 100, 200000);
-    //   l.castShadow = true;
-    //   starsLight.push(new THREE.PointLight(0xeedca5, 100, 200000));
-    // }
 
     new THREE.CubeTextureLoader()
       .setPath("/static/texture/stars_background/")
@@ -63,14 +46,6 @@ export default class App extends React.Component {
           animate();
         }
       );
-
-    // starsLight[0].position.set(0, 200000, 0);
-    // starsLight[1].position.set(0, -200000, 0);
-    // starsLight[2].position.set(0, 0, 200000);
-    // starsLight[3].position.set(0, 0, -200000);
-    // starsLight[4].position.set(200000, 0, 0);
-    // starsLight[5].position.set(-200000, 0, 0);
-    // starsLight.map(item => this.scenes.main.add(item));
 
     const sun = new Sun(this.scenes.main, camera, renderer);
 
@@ -197,16 +172,16 @@ export default class App extends React.Component {
       //   mercury.mesh.rotation.y += 0.01;
       // }
       // if (venus && venus.mesh) {
-      //   venus.group.rotation.y -= r(0.001);
+      //   venus.group.rotation.y -= r(0.001);с
       //   venus.mesh.rotation.y += 0.01;
       // }
-      if (earn && earn.mesh) {
-        // earn.group.rotation.y -= r(0.001);
-        earn.mesh.rotation.y += 0.001;
-        if (earn.moon) {
-          earn.moon.rotation.y -= ((0.1 * Math.PI) / 180) % 360;
-        }
-      }
+      // if (earn && earn.mesh) {
+      //   earn.group.rotation.y -= r(0.001);
+      //   earn.mesh.rotation.y += 0.001;
+      //   if (earn.moon) {
+      //     earn.moon.rotation.y -= ((0.1 * Math.PI) / 180) % 360;
+      //   }
+      // }
       // if (mars && mars.mesh) {
       //   mars.group.rotation.y -= r(0.001);
       //   mars.mesh.rotation.y += 0.01;

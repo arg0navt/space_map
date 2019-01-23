@@ -8,6 +8,7 @@ const Orbit = function(group, radius, intensive) {
   var material = new LineBasicMaterial({ color: 0x191919 });
   const mesh = new Line(geometryOrbit, material);
   mesh.scale.set(radius, radius, radius);
+  mesh.opacity = 0.2;
   group.add(mesh);
 };
 
