@@ -5,6 +5,13 @@ import Planet from "../objects/Planet";
 
 var OrbitControls = require("three-orbit-controls")(THREE);
 export default class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      courseTo: "mercury"
+    };
+  }
+
   componentDidMount() {
     this.scenes = {
       help: new THREE.Scene(),
@@ -207,15 +214,30 @@ export default class App extends React.Component {
     animate();
   }
 
+  changeCourseTo = (name) => {
+    this.setState({courseTo: name});
+  }
+
   render() {
+    const hasActiveCourse = (name) => name === this.state.courseTo;
     return (
       <div className="custom-control-wrap">
         <div className="title">
-          <p>Lorem Ipsum</p>
+          <p>Track control</p>
         </div>
-        <div className="corner-border">
-        </div>
-        <div className="image_planet"></div>
+        <div className="corner-border" />
+        <div className={"image_planet" + " " + this.state.courseTo} />
+        <ul className="list_planet">
+          <li className={`item${hasActiveCourse("mercury") ? " active" : ""}`} onClick={() => this.changeCourseTo("mercury")}>Mercury</li>
+          <li className={`item${hasActiveCourse("venus") ? " active" : ""}`} onClick={() => this.changeCourseTo("venus")}>Venus</li>
+          <li className={`item${hasActiveCourse("earn") ? " active" : ""}`} onClick={() => this.changeCourseTo("earn")}>Earn</li>
+          <li className={`item${hasActiveCourse("mars") ? " active" : ""}`} onClick={() => this.changeCourseTo("mars")}>Mars</li>
+          <li className={`item${hasActiveCourse("saturn") ? " active" : ""}`} onClick={() => this.changeCourseTo("saturn")}>Saturn</li>
+          <li className={`item${hasActiveCourse("jupiter") ? " active" : ""}`} onClick={() => this.changeCourseTo("jupiter")}>Jupiter</li>
+          <li className={`item${hasActiveCourse("uranus") ? " active" : ""}`} onClick={() => this.changeCourseTo("uranus")}>Uranus</li>
+          <li className={`item${hasActiveCourse("neptune") ? " active" : ""}`} onClick={() => this.changeCourseTo("neptune")}>Nepyune</li>
+        </ul>
+        <button className="apply_course">Apply course</button>
       </div>
     );
   }

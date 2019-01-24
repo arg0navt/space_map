@@ -11,7 +11,7 @@ body {
 
 .custom-control-wrap {
   width: 300px;
-  height: 370px;
+  height: 470px;
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -52,10 +52,86 @@ body {
   background: #cf3700;
 }
 
-.image_planet{ 
+.image_planet { 
   width: 200px;
   height: 200px;
-  margin: 50px auto;
+  margin: 15px auto;
+}
+
+.image_planet.mercury {
   background: url("/static/texture/panel/j_planet.png") no-repeat;
   background-size: cover;
+}
+
+.image_planet.venus {
+  background: url("/static/texture/panel/v_planet.png") no-repeat;
+  background-size: cover;
+}
+
+.image_planet.earn {
+  background: url("/static/texture/panel/e_planet.png") no-repeat;
+  background-size: cover;
+}
+
+.image_planet.mars {
+  background: url("/static/texture/panel/ma_planet.png") no-repeat;
+  background-size: cover;
+}
+
+.image_planet.jupiter {
+  background: url("/static/texture/panel/j_planet.png") no-repeat;
+  background-size: cover;
+}
+
+.image_planet.saturn {
+  background: url("/static/texture/panel/s_planet.png") no-repeat;
+  background-size: cover;
+}
+
+.image_planet.uranus {
+  background: url("/static/texture/panel/u_planet.png") no-repeat;
+  background-size: cover;
+}
+
+.image_planet.neptune {
+  background: url("/static/texture/panel/n_planet.png") no-repeat;
+  background-size: cover;
+}
+
+.apply_course {
+  width: 100%;
+  height: 30px;
+  border:0;
+  outline: 0;
+  background: #ff6a00;
+  color: #772c00;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.list_planet {
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  list-style: none;
+  padding: 5px 10px;
+  border-top: 1px solid #FFC236;
+  cursor: pointer;
+  position: relative;
+}
+
+.item.active:before {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #ff6a00;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  right: 10px;
 }
