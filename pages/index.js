@@ -28,7 +28,7 @@ export default class App extends React.Component {
     });
     renderer.shadowMapEnabled = true;
     renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
+    document.getElementById("space_map").appendChild(renderer.domElement);
 
     new THREE.CubeTextureLoader()
       .setPath("/static/texture/stars_background/")
@@ -208,6 +208,13 @@ export default class App extends React.Component {
   }
 
   render() {
-    return null;
+    return (
+      <div className="wrapper">
+        <div className="custom-control-wrap">
+          <p className="title">Lorem Ipsum</p>
+        </div>
+        <div id="space_map" />
+      </div>
+    );
   }
 }

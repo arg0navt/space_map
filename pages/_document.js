@@ -10,6 +10,8 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
+          <link href="/static/style.css" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet" />
           <style>{`* { margin: 0; padding:0; } /* custom! */`}</style>
         </Head>
         <body className="custom_class">
