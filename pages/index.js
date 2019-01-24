@@ -210,7 +210,12 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="custom-control-wrap">
-        <p className="title">Lorem Ipsum</p>
+        <div className="title">
+          <p>Lorem Ipsum</p>
+        </div>
+        <div className="corner-border">
+        </div>
+        <div className="image_planet"></div>
       </div>
     );
   }
