@@ -8,7 +8,8 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      courseTo: "mercury"
+      courseTo: "mercury",
+      positionCamera: { x: 0, y: 5000, z: 20700 }
     };
   }
 
@@ -18,16 +19,22 @@ export default class App extends React.Component {
       main: new THREE.Scene()
     };
     this.scenes.fog = new THREE.Fog(0x242426, 2000, 4000);
-    var camera = new THREE.PerspectiveCamera(
+
+    const camera = new THREE.PerspectiveCamera(
       75,
       window.innerWidth / window.innerHeight,
       0.1,
       20000000
     );
-    camera.position.z = 20700;
-    camera.position.y = 5000;
+    camera.position.z = this.state.positionCamera.z;
+    camera.position.y = this.state.positionCamera.y;
+    camera.position.x = this.state.positionCamera.x;
     camera.updateProjectionMatrix();
+
     const control = new OrbitControls(camera);
+    control.addEventListener('change', (e) => {
+      this.setState({positionCamera: e.target.object.position});
+    });
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -214,12 +221,12 @@ export default class App extends React.Component {
     animate();
   }
 
-  changeCourseTo = (name) => {
-    this.setState({courseTo: name});
-  }
+  changeCourseTo = name => {
+    this.setState({ courseTo: name });
+  };
 
   render() {
-    const hasActiveCourse = (name) => name === this.state.courseTo;
+    const hasActiveCourse = name => name === this.state.courseTo;
     return (
       <div className="custom-control-wrap">
         <div className="title">
@@ -228,14 +235,54 @@ export default class App extends React.Component {
         <div className="corner-border" />
         <div className={"image_planet" + " " + this.state.courseTo} />
         <ul className="list_planet">
-          <li className={`item${hasActiveCourse("mercury") ? " active" : ""}`} onClick={() => this.changeCourseTo("mercury")}>Mercury</li>
-          <li className={`item${hasActiveCourse("venus") ? " active" : ""}`} onClick={() => this.changeCourseTo("venus")}>Venus</li>
-          <li className={`item${hasActiveCourse("earn") ? " active" : ""}`} onClick={() => this.changeCourseTo("earn")}>Earn</li>
-          <li className={`item${hasActiveCourse("mars") ? " active" : ""}`} onClick={() => this.changeCourseTo("mars")}>Mars</li>
-          <li className={`item${hasActiveCourse("saturn") ? " active" : ""}`} onClick={() => this.changeCourseTo("saturn")}>Saturn</li>
-          <li className={`item${hasActiveCourse("jupiter") ? " active" : ""}`} onClick={() => this.changeCourseTo("jupiter")}>Jupiter</li>
-          <li className={`item${hasActiveCourse("uranus") ? " active" : ""}`} onClick={() => this.changeCourseTo("uranus")}>Uranus</li>
-          <li className={`item${hasActiveCourse("neptune") ? " active" : ""}`} onClick={() => this.changeCourseTo("neptune")}>Nepyune</li>
+          <li
+            className={`item${hasActiveCourse("mercury") ? " active" : ""}`}
+            onClick={() => this.changeCourseTo("mercury")}
+          >
+            Mercury
+          </li>
+          <li
+            className={`item${hasActiveCourse("venus") ? " active" : ""}`}
+            onClick={() => this.changeCourseTo("venus")}
+          >
+            Venus
+          </li>
+          <li
+            className={`item${hasActiveCourse("earn") ? " active" : ""}`}
+            onClick={() => this.changeCourseTo("earn")}
+          >
+            Earn
+          </li>
+          <li
+            className={`item${hasActiveCourse("mars") ? " active" : ""}`}
+            onClick={() => this.changeCourseTo("mars")}
+          >
+            Mars
+          </li>
+          <li
+            className={`item${hasActiveCourse("saturn") ? " active" : ""}`}
+            onClick={() => this.changeCourseTo("saturn")}
+          >
+            Saturn
+          </li>
+          <li
+            className={`item${hasActiveCourse("jupiter") ? " active" : ""}`}
+            onClick={() => this.changeCourseTo("jupiter")}
+          >
+            Jupiter
+          </li>
+          <li
+            className={`item${hasActiveCourse("uranus") ? " active" : ""}`}
+            onClick={() => this.changeCourseTo("uranus")}
+          >
+            Uranus
+          </li>
+          <li
+            className={`item${hasActiveCourse("neptune") ? " active" : ""}`}
+            onClick={() => this.changeCourseTo("neptune")}
+          >
+            Nepyune
+          </li>
         </ul>
         <button className="apply_course">Apply course</button>
       </div>
