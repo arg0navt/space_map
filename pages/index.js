@@ -14,7 +14,7 @@ export default class App extends React.Component {
     var camera = new THREE.PerspectiveCamera(
       75,
       window.innerWidth / window.innerHeight,
-      0.0001,
+      0.1,
       20000000
     );
     camera.position.z = 20700;
@@ -28,7 +28,7 @@ export default class App extends React.Component {
     });
     renderer.shadowMapEnabled = true;
     renderer.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById("space_map").appendChild(renderer.domElement);
+    document.body.appendChild(renderer.domElement);
 
     new THREE.CubeTextureLoader()
       .setPath("/static/texture/stars_background/")
@@ -59,7 +59,7 @@ export default class App extends React.Component {
       startPositionX: 0,
       startPositionZ: 1158,
       textureUrl: "/static/texture/2k/mercury.jpg",
-      geometry: geometryPlanet,
+      geometry: geometryPlanet
     });
 
     const venus = new Planet({
@@ -70,7 +70,7 @@ export default class App extends React.Component {
       startPositionX: 0,
       startPositionZ: 2164,
       textureUrl: "/static/texture/2k/venus.jpg",
-      geometry: geometryPlanet,
+      geometry: geometryPlanet
     });
 
     const earn = new Planet({
@@ -81,7 +81,7 @@ export default class App extends React.Component {
       startPositionX: 0,
       startPositionZ: 2992,
       textureUrl: "/static/texture/8k/earn.jpg",
-      geometry: geometryPlanet,
+      geometry: geometryPlanet
     });
 
     // earn.createSatellite({
@@ -101,7 +101,7 @@ export default class App extends React.Component {
       startPositionX: 0,
       startPositionZ: 4558,
       textureUrl: "/static/texture/low/mars.jpg",
-      geometry: geometryPlanet,
+      geometry: geometryPlanet
     });
 
     const jupiter = new Planet({
@@ -112,7 +112,7 @@ export default class App extends React.Component {
       startPositionX: 0,
       startPositionZ: 15570,
       textureUrl: "/static/texture/low/jupiter.jpg",
-      geometry: geometryPlanet,
+      geometry: geometryPlanet
     });
 
     const saturn = new Planet({
@@ -123,7 +123,7 @@ export default class App extends React.Component {
       startPositionX: 0,
       startPositionZ: 28680,
       textureUrl: "/static/texture/8k/saturn.jpg",
-      geometry: geometryPlanet,
+      geometry: geometryPlanet
     });
 
     saturn.createRings({
@@ -146,7 +146,7 @@ export default class App extends React.Component {
       startPositionX: 0,
       startPositionZ: 800,
       textureUrl: "/static/texture/low/uranus.jpg",
-      geometry: geometryPlanet,
+      geometry: geometryPlanet
     });
 
     const neptune = new Planet({
@@ -157,7 +157,7 @@ export default class App extends React.Component {
       startPositionX: 0,
       startPositionZ: 57420,
       textureUrl: "/static/texture/low/neptune.png",
-      geometry: geometryPlanet,
+      geometry: geometryPlanet
     });
 
     const animate = () => {
@@ -209,11 +209,8 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div className="wrapper">
-        <div className="custom-control-wrap">
-          <p className="title">Lorem Ipsum</p>
-        </div>
-        <div id="space_map" />
+      <div className="custom-control-wrap">
+        <p className="title">Lorem Ipsum</p>
       </div>
     );
   }

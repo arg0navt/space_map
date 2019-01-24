@@ -5,7 +5,7 @@ geometryOrbit.vertices.shift();
 geometryOrbit.rotateX(-Math.PI / 2);
 
 const Orbit = function(group, radius, intensive) {
-  var material = new LineBasicMaterial({ color: 0x191919 });
+  var material = new LineBasicMaterial({ color: 0x351707 });
   const mesh = new Line(geometryOrbit, material);
   mesh.scale.set(radius, radius, radius);
   mesh.opacity = 0.2;
