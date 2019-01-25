@@ -2,6 +2,7 @@ import React from "react";
 import * as THREE from "three";
 import Sun from "../objects/Sun";
 import Planet from "../objects/Planet";
+import GLTFLoader from "three-gltf-loader";
 
 var OrbitControls = require("three-orbit-controls")(THREE);
 export default class App extends React.Component {
@@ -31,9 +32,9 @@ export default class App extends React.Component {
     camera.position.x = this.state.positionCamera.x;
     camera.updateProjectionMatrix();
 
-    const control = new OrbitControls(camera);
-    control.addEventListener('change', (e) => {
-      this.setState({positionCamera: e.target.object.position});
+    this.control = new OrbitControls(camera);
+    this.control.addEventListener("change", e => {
+      this.setState({ positionCamera: e.target.object.position });
     });
 
     const renderer = new THREE.WebGLRenderer({
@@ -43,6 +44,69 @@ export default class App extends React.Component {
     renderer.shadowMapEnabled = true;
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
+
+    const loader = new GLTFLoader();
+    const loader2 = new GLTFLoader();
+
+    var light = new THREE.PointLight(0xeedca5, 3, 200000);
+    light.position.set(0, 0, 0);
+    light.castShadow = true; // default false
+    this.scenes.main.add(light);
+
+    const starsLight = [];
+
+    for (let i = 0; i <= 5; i++) {
+      const l = new THREE.PointLight(0xeedca5, 3, 200000);
+      l.castShadow = true;
+      starsLight.push(new THREE.PointLight(0xeedca5, 3, 200000));
+    }
+
+    starsLight[0].position.set(0, 200000, 0);
+    starsLight[1].position.set(0, -200000, 0);
+    starsLight[2].position.set(0, 0, 200000);
+    starsLight[3].position.set(0, 0, -200000);
+    starsLight[4].position.set(200000, 0, 0);
+    starsLight[5].position.set(-200000, 0, 0);
+    starsLight.map(item => this.scenes.main.add(item));
+
+    loader.load(
+      // resource URL
+      "/static/texture/saturn_planet/scene.gltf",
+      // called when the resource is loaded
+      gltf => {
+        // called when the resource is loaded
+        gltf.scene.position.z = 28680;
+        this.scenes.main.add(gltf.scene);
+      },
+      xhr => {
+        // called while loading is progressing
+        console.log(`${(xhr.loaded / xhr.total) * 100}% loaded`);
+      },
+      error => {
+        // called when loading has errors
+        console.error("An error happened", error);
+      }
+    );
+
+    loader2.load(
+      // resource URL
+      "/static/texture/earth/scene.gltf",
+      // called when the resource is loaded
+      gltf => {
+        // called when the resource is loaded
+        console.log(gltf);
+        gltf.scene.position.z = 2992;
+        this.scenes.main.add(gltf.scene);
+      },
+      xhr => {
+        // called while loading is progressing
+        console.log(`${(xhr.loaded / xhr.total) * 100}% loaded`);
+      },
+      error => {
+        // called when loading has errors
+        console.error("An error happened", error);
+      }
+    );
 
     new THREE.CubeTextureLoader()
       .setPath("/static/texture/stars_background/")
@@ -87,16 +151,16 @@ export default class App extends React.Component {
       geometry: geometryPlanet
     });
 
-    const earn = new Planet({
-      scene: this.scenes.main,
-      orbitRadius: 2992,
-      sizePlanet: 1,
-      intensive: 600,
-      startPositionX: 0,
-      startPositionZ: 2992,
-      textureUrl: "/static/texture/8k/earn.jpg",
-      geometry: geometryPlanet
-    });
+    // const earn = new Planet({
+    //   scene: this.scenes.main,
+    //   orbitRadius: 2992,
+    //   sizePlanet: 1,
+    //   intensive: 600,
+    //   startPositionX: 0,
+    //   startPositionZ: 2992,
+    //   textureUrl: "/static/texture/8k/earn.jpg",
+    //   geometry: geometryPlanet
+    // });
 
     // earn.createSatellite({
     //   name: "moon",
@@ -129,29 +193,6 @@ export default class App extends React.Component {
       geometry: geometryPlanet
     });
 
-    const saturn = new Planet({
-      scene: this.scenes.main,
-      orbitRadius: 28680,
-      sizePlanet: 9.14,
-      intensive: 1200,
-      startPositionX: 0,
-      startPositionZ: 28680,
-      textureUrl: "/static/texture/8k/saturn.jpg",
-      geometry: geometryPlanet
-    });
-
-    saturn.createRings({
-      textureUrl: "/static/texture/low/saturn_ring_alpha.png",
-      minRadius: 10.5,
-      maxRadius: 17,
-      segment: 64,
-      lookAt: {
-        x: 0,
-        y: 90,
-        z: 0
-      }
-    });
-
     const uranus = new Planet({
       scene: this.scenes.main,
       orbitRadius: 800,
@@ -178,9 +219,9 @@ export default class App extends React.Component {
       requestAnimationFrame(animate);
       const r = k => ((k * Math.PI) / 180) % 360;
 
-      if (sun && sun.mesh) {
-        sun.mesh.rotation.y += 0.01;
-      }
+      // if (sun && sun.mesh) {
+      //   sun.mesh.rotation.y += 0.01;
+      // }
       // if (mercury && mercury.mesh) {
       //   mercury.group.rotation.y += r(0.001);
       //   mercury.mesh.rotation.y += 0.01;
